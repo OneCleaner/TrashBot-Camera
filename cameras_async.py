@@ -5,7 +5,7 @@ import sys
 
 class WebcamStream(object):
 
-    #costruttore inutile ma io lo metto
+    # costruttore inutile ma io lo metto
     def __new__(cls, *args, **kwargs):
         return super(WebcamStream, cls).__new__(cls)
 
@@ -20,25 +20,29 @@ class WebcamStream(object):
         self.__thread = Thread(target=self.update, args=())
 
     def start(self):
-        #parte il thread, possiamo definire l'oggetto per poi farlo partire in un secondo momento
-        #o passare il thread già istanziato
+        # parte il thread, possiamo definire l'oggetto per poi farlo partire in un secondo momento
+        # o passare il thread già istanziato
         self.__thread.start()
         return self
 
     def update(self):
-        #legge e manda i frame appena sono disponibili
+        # legge e manda i frame appena sono disponibili
         while True:
-            #ci fermiamo se il ci viene indicato.
+            # ci fermiamo se il ci viene indicato.
             if self.stopped:
                 return
             (self.grabbed, self.frame) = self.stream.read()
 
     def read(self):
-        #ritorna la roba ultima presa
+        # ritorna la roba ultima presa
         return self.grabbed, self.frame
 
+    def jpg(self):
+        ret, jpg = cv.imencode('.jpg', self.frame, [int(cv.IMWRITE_JPEG_QUALITY), 95])
+        return jpg.tobytes()
+
     def stop(self):
-        #possiamo fermare il thread in esecuzione ma non fermarlo, a differenza dei processi
+        # possiamo fermare il thread in esecuzione ma non fermarlo, a differenza dei processi
         self.stopped = True
 
     def get_stream(self):
@@ -47,14 +51,14 @@ class WebcamStream(object):
 
 if __name__ == "__main__":
 
-    #istanziamo le classi e i thread
+    # istanziamo le classi e i thread
     web_1 = WebcamStream(src=0, mirror=True)
     web_1.start()
     web_2 = WebcamStream(src=1, mirror=True)
     web_2.start()
 
     while True:
-        #grabbiamo i frame dai processi in esecuzione
+        # grabbiamo i frame dai processi in esecuzione
         grabbed_1, frame_1 = web_1.read()
         grabbed_2, frame_2 = web_2.read()
 
