@@ -8,7 +8,7 @@ from http import server
 from pathlib import Path
 from cameras_async import WebcamStream
 
-PAGE = Path("index.html").read_text()
+PAGE = Path("http.html").read_text()
 
 """         #vecchio codice, ora viene importato dal file
 <html>
