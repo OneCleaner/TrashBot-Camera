@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Stream</title>
+</head>
+
+<body onload="receive()">
+    <img id="image0" class="image">
+    <br>
+    <img id="image1" class="image">
+</body>
+<script>
+    function receive() {
+        let xmlhr0 = new XMLHttpRequest();
+        xmlhr0.open("VIDEO0", window.location.href + "stream.py");
+        xmlhr0.send();
+        xmlhr0.onload = function() {
+            document.getElementById("image0").src = "data:image/png;base64," + xmlhr0.response;
+            setTimeout(receive, 1000);
+        }
+        xmlhr0.onerror = function() {
+            console.log("An error has occurred");
+            setTimeout(receive, 1500);
+        }
+        let xmlhr1 = new XMLHttpRequest();
+        xmlhr1.open("VIDEO1", window.location.href + "stream.py");
+        xmlhr1.send();
+        xmlhr1.onload = function() {
+            document.getElementById("image1").src = "data:image/png;base64," + xmlhr1.response;
+            setTimeout(receive, 1000);
+        }
+        xmlhr1.onerror = function() {
+            console.log("An error has occurred");
+            setTimeout(receive, 1500);
+        }
+    }
+</script>
+<style>
+    .image {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 60vh;
+    }
+</style>
+
+</html>
