@@ -20,7 +20,7 @@
         <script type="text/javascript">
             function receive() {
                 let xmlhr0 = new XMLHttpRequest();
-                xmlhr0.open("VIDEO0", window.location.href + "stream.py");
+                xmlhr0.open("VIDEO0", window.location.href + "camera_skt.py");
                 xmlhr0.send();
                 xmlhr0.onload = function() {
                     document.getElementById("image0").src = "data:image/png;base64," + xmlhr0.response;
@@ -31,7 +31,7 @@
                     setTimeout(receive, 1500);
                 }
                 let xmlhr1 = new XMLHttpRequest();
-                xmlhr1.open("VIDEO1", window.location.href + "stream.py");
+                xmlhr1.open("VIDEO1", window.location.href + "camera_skt.py");
                 xmlhr1.send();
                 xmlhr1.onload = function() {
                     document.getElementById("image1").src = "data:image/png;base64," + xmlhr1.response;

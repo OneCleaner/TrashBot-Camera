@@ -24,6 +24,7 @@ STREAM1.set(4, 240)
 #STREAM1 = STREAM0
 #STREAM0 = STREAM1
 
+
 def server():
     """Stream live video"""
     ret0, frame0 = STREAM0.read()
